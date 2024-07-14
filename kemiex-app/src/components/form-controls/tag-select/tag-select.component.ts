@@ -30,13 +30,13 @@ import { FieldBase } from '../../../models/field-base';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagSelectComponent implements ControlValueAccessor {
-  private onChange!: (value: FieldBase<unknown>[]) => void;
-  private onTouched!: () => void;
+  private onChange = (value: FieldBase<unknown>[]): void => {};
+  private onTouched = (): void => {};
   private touched = false;
 
   readonly currentField = signal('');
   readonly fields = signal<FieldBase<unknown>[]>([]);
-  readonly allFields = input<FieldBase<unknown>[]>([
+  readonly allFields = input<any>([
     new FieldBase<number>({
       key: 'age',
       label: 'Age',
@@ -53,7 +53,7 @@ export class TagSelectComponent implements ControlValueAccessor {
   readonly filteredFields = computed(() => {
     const currentField = this.currentField().toLowerCase();
     return currentField
-      ? this.allFields().filter((field) =>
+      ? this.allFields().filter((field: { label: string }) =>
           field.label.toLowerCase().includes(currentField)
         )
       : this.allFields();

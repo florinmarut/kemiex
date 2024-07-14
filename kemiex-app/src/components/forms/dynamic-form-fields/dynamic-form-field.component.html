@@ -5,5 +5,7 @@
     [id]="field().key"
     [type]="field().type"
   />
+  } @case ('tagselect') {
+  <tag-select [formControlName]="field().key" [allFields]="field().value"></tag-select>
   } }
 </div>
