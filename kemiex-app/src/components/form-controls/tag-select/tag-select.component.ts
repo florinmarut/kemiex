@@ -5,7 +5,7 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatAutocompleteSelectedEvent,
@@ -29,9 +29,13 @@ import { FieldBase } from '../../../models/field-base';
   styleUrl: './tag-select.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TagSelectComponent {
+export class TagSelectComponent implements ControlValueAccessor {
+  private onChange!: (value: FieldBase<unknown>[]) => void;
+  private onTouched!: () => void;
+  private touched = false;
+
   readonly currentField = signal('');
-  readonly fields = signal<FieldBase<string>[]>([]);
+  readonly fields = signal<FieldBase<unknown>[]>([]);
   readonly allFields = input<FieldBase<unknown>[]>([
     new FieldBase<number>({
       key: 'age',
@@ -55,7 +59,8 @@ export class TagSelectComponent {
       : this.allFields();
   });
 
-  remove(field: FieldBase<string>): void {
+  remove(field: FieldBase<unknown>): void {
+    this.markAsTouched();
     this.fields.update((fields) => {
       const index = fields.indexOf(field);
       if (index < 0) {
@@ -65,10 +70,33 @@ export class TagSelectComponent {
       fields.splice(index, 1);
       return [...fields];
     });
+    this.onChange(this.fields());
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
+    this.markAsTouched();
     this.fields.update((fields) => [...fields, event.option.value]);
     this.currentField.set('');
+    this.onChange(this.fields());
+  }
+
+  writeValue(fields: FieldBase<unknown>[]): void {
+    this.fields.set(fields);
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    throw new Error('Method not implemented.');
+  }
+
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched = true;
+    }
   }
 }
