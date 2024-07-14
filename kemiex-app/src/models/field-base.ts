@@ -5,6 +5,7 @@ export class FieldBase<T> {
   required: boolean;
   order: number;
   controlType: string;
+  type: string;
   constructor(
     options: {
       value?: T;
@@ -13,6 +14,7 @@ export class FieldBase<T> {
       required?: boolean;
       order?: number;
       controlType?: string;
+      type?: string;
     } = {}
   ) {
     this.value = options.value;
@@ -21,5 +23,6 @@ export class FieldBase<T> {
     this.required = !!options.required;
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
+    this.type = options.type || '';
   }
 }
