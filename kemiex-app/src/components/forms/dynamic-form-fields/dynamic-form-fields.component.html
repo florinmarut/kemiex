@@ -1,0 +1,7 @@
+<div [formGroup]="form()">
+    @switch(field().controlType) {
+        @case('textbox') {
+            <input [formControlName]="field().key" [id]="field().key"/>
+        }
+    }
+</div>
