@@ -12,7 +12,7 @@
   } @case ('tagselect') {
   <tag-select
     [formControlName]="field().key"
-    [allFields]="field().value"
+    [allFields]="field().value | fields"
   ></tag-select>
   } }
 </div>

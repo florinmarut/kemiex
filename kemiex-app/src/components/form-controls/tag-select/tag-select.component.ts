@@ -36,20 +36,7 @@ export class TagSelectComponent implements ControlValueAccessor {
 
   readonly currentField = signal('');
   readonly fields = signal<FieldBase<unknown>[]>([]);
-  readonly allFields = input<any>([
-    new FieldBase<number>({
-      key: 'age',
-      label: 'Age',
-      value: 25,
-      order: 1,
-    }),
-    new FieldBase<string>({
-      key: 'gender',
-      label: 'Gender',
-      value: 'M',
-      order: 2,
-    }),
-  ]);
+  readonly allFields = input.required<FieldBase<unknown>[]>();
   readonly filteredFields = computed(() => {
     const currentField = this.currentField().toLowerCase();
     return currentField
