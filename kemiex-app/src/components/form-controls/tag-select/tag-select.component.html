@@ -1,1 +1,26 @@
-<p>tag-select works!</p>
+<mat-form-field>
+  <mat-label>Fields</mat-label>
+  <mat-chip-grid #chipGrid aria-label="Field selection">
+    @for (field of fields(); track $index) {
+    <mat-chip-row (removed)="remove(field)">
+      {{ field.label }}
+      <button matChipRemove [attr.aria-label]="'remove ' + field">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+    }
+  </mat-chip-grid>
+  <input
+    name="currentField"
+    placeholder="Search..."
+    #fieldInput
+    [(ngModel)]="currentField"
+    [matChipInputFor]="chipGrid"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    @for (field of filteredFields(); track $index) {
+    <mat-option [value]="field">{{ field.label }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>
