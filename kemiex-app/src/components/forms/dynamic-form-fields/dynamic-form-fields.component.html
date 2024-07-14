@@ -1,7 +1,9 @@
 <div [formGroup]="form()">
-    @switch(field().controlType) {
-        @case('textbox') {
-            <input [formControlName]="field().key" [id]="field().key"/>
-        }
-    }
+  @switch(field().controlType) { @case('textbox') {
+  <input
+    [formControlName]="field().key"
+    [id]="field().key"
+    [type]="field().type"
+  />
+  } }
 </div>
