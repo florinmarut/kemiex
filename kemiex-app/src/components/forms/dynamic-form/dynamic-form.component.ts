@@ -3,11 +3,12 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FieldBase } from '../../../models/field-base';
 import { FieldsControlService } from '../../../services/fields-control.service';
 import { DynamicFormFieldComponent } from "../dynamic-form-fields/dynamic-form-field.component";
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'dynamic-form',
   standalone: true,
-  imports: [ReactiveFormsModule, DynamicFormFieldComponent],
+  imports: [MatButtonModule, ReactiveFormsModule, DynamicFormFieldComponent],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss'
 })

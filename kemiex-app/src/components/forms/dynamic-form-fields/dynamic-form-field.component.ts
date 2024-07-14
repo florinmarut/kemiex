@@ -2,12 +2,20 @@ import { Component, input } from '@angular/core';
 import { FieldBase } from '../../../models/field-base';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TagSelectComponent } from "../../form-controls/tag-select/tag-select.component";
+import { TagSelectComponent } from '../../form-controls/tag-select/tag-select.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'dynamic-form-field',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TagSelectComponent],
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    CommonModule,
+    ReactiveFormsModule,
+    TagSelectComponent,
+  ],
   templateUrl: './dynamic-form-field.component.html',
   styleUrl: './dynamic-form-field.component.scss',
 })

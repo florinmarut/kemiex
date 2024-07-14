@@ -1,11 +1,18 @@
 <div [formGroup]="form()">
   @switch(field().controlType) { @case('textbox') {
-  <input
-    [formControlName]="field().key"
-    [id]="field().key"
-    [type]="field().type"
-  />
+  <mat-form-field>
+    <mat-label>{{ field().label }}</mat-label>
+    <input
+      matInput
+      [formControlName]="field().key"
+      [id]="field().key"
+      [type]="field().type"
+    />
+  </mat-form-field>
   } @case ('tagselect') {
-  <tag-select [formControlName]="field().key" [allFields]="field().value"></tag-select>
+  <tag-select
+    [formControlName]="field().key"
+    [allFields]="field().value"
+  ></tag-select>
   } }
 </div>
