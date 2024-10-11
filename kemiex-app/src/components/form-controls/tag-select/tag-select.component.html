@@ -18,9 +18,17 @@
     [matChipInputFor]="chipGrid"
     [matAutocomplete]="auto"
   />
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+  <mat-autocomplete
+    autoSelectActiveOption="false"
+    #auto="matAutocomplete"
+    (optionSelected)="selected($event)"
+  >
     @for (field of filteredFields(); track $index) {
-    <mat-option [value]="field">{{ field.label }}</mat-option>
+    <mat-option [value]="field"
+      ><mat-checkbox [checked]="field.selected">{{
+        field.label
+      }}</mat-checkbox></mat-option
+    >
     }
   </mat-autocomplete>
 </mat-form-field>

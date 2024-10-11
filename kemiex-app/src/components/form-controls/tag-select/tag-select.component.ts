@@ -14,6 +14,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { FieldBase } from '../../../models/field-base';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'tag-select',
@@ -24,6 +26,8 @@ import { FieldBase } from '../../../models/field-base';
     MatIconModule,
     MatAutocompleteModule,
     FormsModule,
+    MatCheckboxModule,
+    JsonPipe,
   ],
   templateUrl: './tag-select.component.html',
   styleUrl: './tag-select.component.scss',
@@ -48,6 +52,7 @@ export class TagSelectComponent implements ControlValueAccessor {
 
   remove(field: FieldBase<unknown>): void {
     this.markAsTouched();
+    field.selected = false;
     this.fields.update((fields) => {
       const index = fields.indexOf(field);
       if (index < 0) {
@@ -62,7 +67,9 @@ export class TagSelectComponent implements ControlValueAccessor {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.markAsTouched();
-    this.fields.update((fields) => [...fields, event.option.value]);
+    const value = event.option.value;
+    value.selected = true;
+    this.fields.update((fields) => [...fields, value]);
     this.currentField.set('');
     this.onChange(this.fields());
   }
